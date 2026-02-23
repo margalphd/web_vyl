@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Victoria & Luis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&family=Lora:wght@400;600;700&family=Macondo:wght@400&family=Great+Vibes:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #5C6948; /* verde oscuro */
+      --secondary: #f5ede0; /* beige cálido */
+      --dark: #3d3d3d; /* gris oscuro */
+      --bg: #f5ede0; /* beige cálido para fondo */
+      --section-bg: #D9DFC0; /* verde claro para secciones */
+      --accent: #d4a574; /* beige dorado */
+    }
+    * { box-sizing: border-box; }
+    /* botón de reproducción flotante para sortear bloqueo de autoplay */
+    .play-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 999;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, #dce5e0 0%, #e8dcc8 100%);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      transition: all 0.3s ease;
+    }
+    .play-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+    }
+    body {
+      margin: 0;
+      font-family: 'Lora', serif;
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.8;
+      font-size: 1.1rem;
+      font-weight: 400;
+    }
+    header {
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: var(--bg);
+      color: var(--dark);
+      padding: 1.5rem 1rem;
+      position: relative;
+    }
+    header img {
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      margin: 1.5rem 0 0.5rem 0;
+      max-width: 90vw;
+      padding: 0 1rem;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+    header p { 
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      margin: 0.5rem auto;
+      max-width: 90vw;
+      padding: 0 1rem;
+    }
+    section {
+      padding: 2rem 1rem;
+      max-width: 100%;
+      margin: auto;
+      background: var(--section-bg);
+      border-radius: 15px;
+      margin-bottom: 1.5rem;
+    }
+    h2 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      margin-bottom: 1.5rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .emoji { font-size: 2.2rem; }
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: var(--secondary);
+      font-size: 1.3rem;
+    }
+    .countdown {
+      font-size: 1.6rem;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 1rem;
+      color: var(--primary);
+    }
+    iframe { border-radius: 16px; width: 100%; height: 350px; border: 0; }
+    .itinerary-step { text-align: center; }
+    .itinerary-step h3 { color: var(--primary); }
+    .itinerary-step span { font-size: 2.5rem; display: block; margin-bottom: .5rem; }
+    .giralda { max-width: 120px; margin: 0 auto 1.5rem; display: block; }
+    .names-section {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      max-width: 450px;
+      margin: -60px auto 2rem auto;
+      position: relative;
+      z-index: 10;
+      border: 3px solid var(--primary);
+    }
+    .names-section h1 {
+      font-family: 'Macondo', cursive !important;
+      color: #5C6948 !important;
+      font-size: 5.5rem !important;
+      margin: 0 auto 1rem auto !important;
+      text-align: center !important;
+      letter-spacing: 0 !important;
+      font-weight: 700 !important;
+    }
+    .names-section p {
+      color: #3d3d3d;
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Música de fondo -->
+  <audio autoplay loop>
+    <source src="todos_besos.mp3" type="audio/mpeg">
+  </audio>
+
+  <header>
+    <img src="logo_2.png" alt="Logo" style="max-width: 250px; margin-bottom: 1rem;">
+  </header>
+
+  <div class="names-section"> 
+    <h1>Victoria & Luis</h1>
+    <img src="acuarela.png" alt="Acuarela" style="max-width: 100%; margin-bottom: 1rem; border-radius: 10px;">
+   </div>
+
+  <section style="background: var(--section-bg); margin: 0 0 2rem 0;">
+    <h2>Cuenta atrás para el gran día</h2>
+    <div class="card" style="text-align: center; background: white;">
+      <div id="countdown" class="countdown" style="font-size: 2.5rem; color: #2d5a3d;"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Detalles del día</h2>
+     <div class="card" style="margin-top: 1.5rem;">
+      <h3 style="text-align: center; color: var(--primary); margin-top: 0; font-size: 1.6rem;">¿Dónde nos vemos?</h3><p style="text-align: center;">Hacienda Tierra Blanca - Salteras</p>
+      <iframe src="https://www.google.com/maps?q=Hacienda%20Tierra%20Blanca%20Salteras&output=embed"></iframe>
+    </div>
+     </div>
+    <div class="card" style="margin-top: 2rem;">
+      <h3 style="text-align: center; color: var(--primary); margin-top: 0; font-size: 1.6rem;">¿Qué tiempo está haciendo en el lugar del evento?</h3>
+      <p id="weather" style="text-align: center; font-size: 1.5rem; margin: 0;margin-top: 1rem;">Cargando el tiempo actual en Salteras...</p>
+    </div>
+   
+    <div class="card" style="margin-top: 1.5rem;">
+      <h3 style="text-align: center; color: var(--primary); margin-top: 0; margin-bottom: 1.5rem; font-size: 1.6rem;">Programa del día</h3>
+      <div style="display: flex; align-items: center; margin-bottom: 1rem; gap: 1rem;">
+        <span style="font-size: 2rem;">🚌</span>
+        <div style="flex: 1;">
+          <span style="background: var(--primary); color: white; padding: 0.3rem 0.8rem; border-radius: 5px; font-weight: bold; margin-right: 0.5rem;">19:00</span>
+          <strong>Salida de autobus</strong>
+          <p style="margin: 0.3rem 0; font-size: 0.95rem;">Puerta de Jerez y Plaza de Armas</p>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 1rem; gap: 1rem;">
+        <span style="font-size: 2rem;">🫂</span>
+        <div style="flex: 1;">
+          <span style="background: var(--primary); color: white; padding: 0.3rem 0.8rem; border-radius: 5px; font-weight: bold; margin-right: 0.5rem;">20:00</span>
+          <strong>Bienvenida en la Hacienda</strong>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 1rem; gap: 1rem;">
+        <span style="font-size: 2rem;">💍</span>
+        <div style="flex: 1;">
+          <span style="background: var(--primary); color: white; padding: 0.3rem 0.8rem; border-radius: 5px; font-weight: bold; margin-right: 0.5rem;">20:30</span>
+          <strong>Ceremonia</strong>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 1rem; gap: 1rem;">
+        <span style="font-size: 2rem;">🍸</span>
+        <div style="flex: 1;">
+          <span style="background: var(--primary); color: white; padding: 0.3rem 0.8rem; border-radius: 5px; font-weight: bold; margin-right: 0.5rem;">21:30</span>
+          <strong>Cena tipo Cóctel</strong>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <span style="font-size: 2rem;">🎶</span>
+        <div style="flex: 1;">
+          <span style="background: var(--primary); color: white; padding: 0.3rem 0.8rem; border-radius: 5px; font-weight: bold; margin-right: 0.5rem;">0:30</span>
+          <strong>Barra libre</strong>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 1rem; gap: 1rem;">
+        <span style="font-size: 2rem;">🪩</span>
+        <div style="flex: 1;">
+          <span style="background: var(--primary); color: white; padding: 0.3rem 0.8rem; border-radius: 5px; font-weight: bold; margin-right: 0.5rem;">4:30</span>
+          <strong>Fin de la barra libre</strong>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 1rem; gap: 1rem;">
+        <span style="font-size: 2rem;">🚌</span>
+        <div style="flex: 1;">
+          <span style="background: var(--primary); color: white; padding: 0.3rem 0.8rem; border-radius: 5px; font-weight: bold; margin-right: 0.5rem;">4:30-5:00</span>
+          <strong>Regreso autobuses</strong>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tu aportación</h2>
+    <div class="card" style="text-align:center">
+      <p style="font-size: 1.2rem; line-height: 1.9; color: var(--primary); font-weight: 500; margin-bottom: 2rem;"><em>Vuestra compañía es el mejor regalo</em>, pero si queréis ayudarnos en esta nueva etapa podéis hacerlo de la manera que os esulte más cómoda:</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+        <div style="background: linear-gradient(135deg, rgba(92,105,72,0.1) 0%, rgba(212,165,116,0.1) 100%); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--primary); transition: all 0.3s ease;">
+          <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🤝</div>
+          <p style="margin: 0; color: var(--primary); font-weight: 600; font-size: 1.1rem;">En mano</p>
+        </div>
+        <div style="background: linear-gradient(135deg, rgba(92,105,72,0.1) 0%, rgba(212,165,116,0.1) 100%); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--primary); transition: all 0.3s ease;">
+          <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏦</div>
+          <p style="margin: 0; color: var(--primary); font-weight: 600; font-size: 1.1rem;">Transferencia</p><p style="margin-top: 1.5rem; font-size: 1.1rem; color: var(--primary); font-weight: 500;">📱 Nº Cuenta: <strong></strong>ES81 2100 6089 6502 0006 4675</strong> 
+        </div>
+        <div style="background: linear-gradient(135deg, rgba(92,105,72,0.1) 0%, rgba(212,165,116,0.1) 100%); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--primary); transition: all 0.3s ease;">
+          <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📱</div>
+          <p style="margin: 0; color: var(--primary); font-weight: 600; font-size: 1.1rem;">Bizum</p></p><strong>666185056</strong> (Luis) / <strong>638497848</strong> (Victoria)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <section>
+    <h2>Formulario de asistencia</h2>
+    <div class="card" style="text-align:center">
+      <p style="font-size: 1.2rem; line-height: 1.9; color: var(--primary); font-weight: 500; margin-bottom: 1.5rem;">Se acerca un <em style="font-style: italic; color: var(--accent);">día único</em> y queremos vivirlo contigo.<br><br>Porque no sería lo mismo sin ti, <strong>confirmanos por favor si podrás venir.</strong></p>
+      <a href="https://forms.gle/H4CuS6DHfKZNGWvU8" target="_blank" style="display: inline-block; background: var(--primary); color: white; padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 1rem; transition: all 0.3s ease; cursor: pointer; font-size: 1.1rem;">Confirmar asistencia</a>
+    </div>
+  </section>
+  <button class="play-btn" id="playBtn">♪</button>
+
+  <footer>
+    <div style="border: 3px solid var(--primary); border-radius: 15px; padding: 2rem; max-width: 500px; margin: 0 auto 1.5rem; background: white;">
+      <img class="baile" src="acua_fer_sev_1.png" alt="baile" style="max-width: 100%; margin-bottom: 1.5rem;" />
+      <p style="margin: 0; font-size: 1.4rem; font-style: italic; color: var(--primary); font-weight: 600;">Gracias por fomrar parte de nuestra historia,<p></p> <span style="font-family: 'Great Vibes', cursive; font-size: 2.2rem; font-style: normal; font-weight: 400;">Luis y Victoria</span></p>
+    </div>
+    <p></p>
+  </footer>
+
+  <script>
+    const audio = document.querySelector('audio');
+    const playBtn = document.getElementById('playBtn');
+    
+    // Al cargar la página, mostrar botón
+    playBtn.style.display = 'flex';
+    
+    // Botón para reproducir/pausar manualmente
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playBtn.textContent = '⏸';
+      } else {
+        audio.pause();
+        playBtn.textContent = '♪';
+      }
+    });
+    
+    // Actualizar ícono cuando se reproduzca/pause
+    audio.addEventListener('play', () => {
+      playBtn.textContent = '⏸';
+    });
+    
+    audio.addEventListener('pause', () => {
+      playBtn.textContent = '♪';
+    });
+
+    const weddingDate = new Date('2026-08-29T20:00:00').getTime();
+    const countdownEl = document.getElementById('countdown');
+
+    setInterval(() => {
+      const now = new Date().getTime();
+      const diff = weddingDate - now;
+      if (diff <= 0) {
+        countdownEl.innerHTML = '¡Hoy es el gran día! 🎉';
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      countdownEl.innerHTML = `${days} días`;
+    }, 1000);
+
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=37.418&longitude=-6.001&current_weather=true')
+      .then(r => r.json())
+      .then(data => {
+        const w = data.current_weather;
+        const weatherCodes = {
+          0: { texto: 'Despejado', icono: '☀️' },
+          1: { texto: 'Mayormente despejado', icono: '🌤️' },
+          2: { texto: 'Parcialmente nublado', icono: '⛅' },
+          3: { texto: 'Nublado', icono: '☁️' },
+          45: { texto: 'Niebla', icono: '🌫️' },
+          48: { texto: 'Niebla escarchada', icono: '🌫️' },
+          51: { texto: 'Llovizna ligera', icono: '🌦️' },
+          53: { texto: 'Llovizna moderada', icono: '🌦️' },
+          55: { texto: 'Llovizna densa', icono: '🌧️' },
+          61: { texto: 'Lluvia ligera', icono: '🌦️' },
+          63: { texto: 'Lluvia moderada', icono: '🌧️' },
+          65: { texto: 'Lluvia fuerte', icono: '⛈️' },
+          71: { texto: 'Nieve ligera', icono: '🌨️' },
+          73: { texto: 'Nieve moderada', icono: '🌨️' },
+          75: { texto: 'Nieve fuerte', icono: '🌨️' },
+          80: { texto: 'Chubascos ligeros', icono: '🌦️' },
+          81: { texto: 'Chubascos moderados', icono: '🌧️' },
+          82: { texto: 'Chubascos fuertes', icono: '⛈️' },
+          95: { texto: 'Tormenta', icono: '⛈️' },
+          96: { texto: 'Tormenta con granizo', icono: '⛈️' },
+          99: { texto: 'Tormenta con granizo fuerte', icono: '⛈️' }
+        };
+        const clima = weatherCodes[w.weathercode] || { texto: 'Tiempo variable', icono: '🌡️' };
+        document.getElementById('weather').innerHTML = `${clima.icono} ${clima.texto} · ${w.temperature}°C`;
+      })
+      .catch(() => {
+        document.getElementById('weather').innerText = 'El tiempo se sabrá… pero la fiesta está asegurada 😄';
+      });
+  </script>
+
+</body>
+</html>
