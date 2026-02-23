@@ -66,6 +66,10 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-15px); }
     }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
     header h1 {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2.8rem, 6vw, 4.5rem);
@@ -94,7 +98,7 @@
       color: var(--primary);
       text-align: center;
       margin-bottom: 1.5rem;
-      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
       letter-spacing: 0.5px;
       font-weight: 600;
     }
@@ -143,11 +147,12 @@
     .names-section h1 {
       font-family: 'Macondo', cursive !important;
       color: #5C6948 !important;
-      font-size: 5.5rem !important;
-      margin: 0 auto 1rem auto !important;
+      font-size: 3rem !important;
+      margin: 0 auto 0.5rem auto !important;
       text-align: center !important;
       letter-spacing: 0 !important;
       font-weight: 700 !important;
+      line-height: 0.95 !important;
     }
     .names-section p {
       color: #3d3d3d;
@@ -174,7 +179,7 @@
   <section style="background: var(--section-bg); margin: 0 0 2rem 0;">
     <h2>Cuenta atrás para el gran día</h2>
     <div class="card" style="text-align: center; background: white;">
-      <div id="countdown" class="countdown" style="font-size: 2.5rem; color: #2d5a3d;"></div>
+      <div id="countdown" class="countdown" style="font-size: 2.5rem; color: black;"></div>
     </div>
   </section>
 
@@ -186,7 +191,7 @@
     </div>
      </div>
     <div class="card" style="margin-top: 2rem;">
-      <h3 style="text-align: center; color: var(--primary); margin-top: 0; font-size: 1.6rem;">¿Qué tiempo está haciendo en el lugar del evento?</h3>
+      <h3 style="text-align: center; color: var(--primary); margin-top: 0; font-size: 1.6rem;">¿Qué tiempo está haciendo?</h3>
       <p id="weather" style="text-align: center; font-size: 1.5rem; margin: 0;margin-top: 1rem;">Cargando el tiempo actual en Salteras...</p>
     </div>
    
@@ -196,7 +201,7 @@
         <span style="font-size: 2rem;">🚌</span>
         <div style="flex: 1;">
           <span style="background: var(--primary); color: white; padding: 0.3rem 0.8rem; border-radius: 5px; font-weight: bold; margin-right: 0.5rem;">19:00</span>
-          <strong>Salida de autobus</strong>
+          <strong>Salida de autobuses</strong>
           <p style="margin: 0.3rem 0; font-size: 0.95rem;">Puerta de Jerez y Plaza de Armas</p>
         </div>
       </div>
@@ -238,8 +243,9 @@
       <div style="display: flex; align-items: center; margin-bottom: 1rem; gap: 1rem;">
         <span style="font-size: 2rem;">🚌</span>
         <div style="flex: 1;">
-          <span style="background: var(--primary); color: white; padding: 0.3rem 0.8rem; border-radius: 5px; font-weight: bold; margin-right: 0.5rem;">4:30-5:00</span>
-          <strong>Regreso autobuses</strong>
+          <span style="background: var(--primary); color: white; padding: 0.3rem 0.8rem; border-radius: 5px; font-weight: bold; margin-right: 0.5rem;">5:00</span>
+          <strong>Regreso de autobuses</strong>
+          <p style="margin: 0.3rem 0; font-size: 0.95rem;">Puerta de Jerez y Plaza de Armas</p>
         </div>
       </div>
       </div>
@@ -249,15 +255,15 @@
   <section>
     <h2>Tu aportación</h2>
     <div class="card" style="text-align:center">
-      <p style="font-size: 1.2rem; line-height: 1.9; color: var(--primary); font-weight: 500; margin-bottom: 2rem;"><em>Vuestra compañía es el mejor regalo</em>, pero si queréis ayudarnos en esta nueva etapa podéis hacerlo de la manera que os esulte más cómoda:</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+      <p style="font-size: 1.2rem; line-height: 1.9; color: var(--primary); font-weight: 500; margin-bottom: 2rem;">Vuestra compañía es el mejor regalo, pero si queréis ayudarnos en esta nueva etapa, podéis hacerlo de la manera que os esulte más cómoda:</p>
+      <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2rem;">
         <div style="background: linear-gradient(135deg, rgba(92,105,72,0.1) 0%, rgba(212,165,116,0.1) 100%); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--primary); transition: all 0.3s ease;">
           <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🤝</div>
           <p style="margin: 0; color: var(--primary); font-weight: 600; font-size: 1.1rem;">En mano</p>
         </div>
         <div style="background: linear-gradient(135deg, rgba(92,105,72,0.1) 0%, rgba(212,165,116,0.1) 100%); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--primary); transition: all 0.3s ease;">
           <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏦</div>
-          <p style="margin: 0; color: var(--primary); font-weight: 600; font-size: 1.1rem;">Transferencia</p><p style="margin-top: 1.5rem; font-size: 1.1rem; color: var(--primary); font-weight: 500;">📱 Nº Cuenta: <strong></strong>ES81 2100 6089 6502 0006 4675</strong> 
+          <p style="margin: 0; color: var(--primary); font-weight: 600; font-size: 1.1rem;">Transferencia</p><p style="margin-top: 1.5rem; font-size: 1.1rem; color: var(--primary); font-weight: 500;"> Nº Cuenta: <strong></strong>ES81 2100 6089 6502 0006 4675</strong> 
         </div>
         <div style="background: linear-gradient(135deg, rgba(92,105,72,0.1) 0%, rgba(212,165,116,0.1) 100%); padding: 1.5rem; border-radius: 12px; border: 2px solid var(--primary); transition: all 0.3s ease;">
           <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📱</div>
@@ -270,8 +276,8 @@
  <section>
     <h2>Formulario de asistencia</h2>
     <div class="card" style="text-align:center">
-      <p style="font-size: 1.2rem; line-height: 1.9; color: var(--primary); font-weight: 500; margin-bottom: 1.5rem;">Se acerca un <em style="font-style: italic; color: var(--accent);">día único</em> y queremos vivirlo contigo.<br><br>Porque no sería lo mismo sin ti, <strong>confirmanos por favor si podrás venir.</strong></p>
-      <a href="https://forms.gle/H4CuS6DHfKZNGWvU8" target="_blank" style="display: inline-block; background: var(--primary); color: white; padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 1rem; transition: all 0.3s ease; cursor: pointer; font-size: 1.1rem;">Confirmar asistencia</a>
+      <p style="font-size: 1.2rem; line-height: 1.9; color: var(--primary); font-weight: 500; margin-bottom: 1.5rem;">Se acerca un día único y queremos vivirlo contigo.<br>Porque no sería lo mismo sin ti, <strong>confirmanos por favor si podrás acompañarnos.</strong></p>
+      <a href="https://forms.gle/H4CuS6DHfKZNGWvU8" target="_blank" style="display: inline-block; background: var(--primary); color: white; padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 1rem; transition: all 0.3s ease; cursor: pointer; font-size: 1.1rem; animation: bounce 2s ease-in-out infinite;">Confirmar asistencia</a>
     </div>
   </section>
   <button class="play-btn" id="playBtn">♪</button>
@@ -279,7 +285,7 @@
   <footer>
     <div style="border: 3px solid var(--primary); border-radius: 15px; padding: 2rem; max-width: 500px; margin: 0 auto 1.5rem; background: white;">
       <img class="baile" src="acua_fer_sev_1.png" alt="baile" style="max-width: 100%; margin-bottom: 1.5rem;" />
-      <p style="margin: 0; font-size: 1.4rem; font-style: italic; color: var(--primary); font-weight: 600;">Gracias por fomrar parte de nuestra historia,<p></p> <span style="font-family: 'Great Vibes', cursive; font-size: 2.2rem; font-style: normal; font-weight: 400;">Luis y Victoria</span></p>
+      <p style="margin: 0; font-size: 1.4rem; font-style: italic; color: var(--primary); font-weight: 600;">Gracias por formar parte de nuestra historia,<p></p> <span style="font-family: 'Great Vibes', cursive; font-size: 2.2rem; font-style: normal; font-weight: 400;">Luis y Victoria</span></p>
     </div>
     <p></p>
   </footer>
