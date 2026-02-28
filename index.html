@@ -195,14 +195,22 @@
     .giralda { max-width: 120px; margin: 0 auto 1.5rem; display: block; }
     .names-section {
       background: white;
-      border-radius: 20px;
-      padding: 1rem 2rem 0 2rem;
+      border-radius: 15px;
+      padding: 1.5rem 0 0 0;   /* ❗ quitamos padding lateral */
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
       max-width: 500px;
       margin: -60px auto 2rem auto;
       position: relative;
       z-index: 10;
       border: 3px solid var(--primary);
+      box-sizing: border-box;  /* ❗ clave */
+      overflow: hidden;        /* ❗ importante para que la imagen respete el border-radius */
+    }
+
+    .names-section h1,
+    .names-section p {
+      padding-left: 2rem;
+      padding-right: 2rem;
     }
     .names-section h1 {
       font-family: 'Macondo', cursive !important;
@@ -233,14 +241,12 @@
 
   
   <div class="names-section"> 
-    <div style="border: 3px solid var(--primary); border-radius: 15px; padding: 2rem 2rem 0 2rem; max-width: 500px; margin: 0 auto 1.5rem; background: white;">
-      <h1>Victoria & Luis</h1>
+    <h1>Victoria & Luis</h1>
       <img class="Acuarela" 
         src="acuarela1_cut.jpg" 
         alt="Acuarela" 
         style="display: block; max-width: 90%; margin: 0 auto 0rem auto;" />
-      <p style="font-family: 'Macondo', cursive; color: var(--primary); font-weight: 700; font-size: 2.5rem; text-align: center; margin: 0;">29 · 08 · 2026</p>
-    </div> 
+      <p style="font-family: 'Macondo', cursive; color: var(--primary); font-weight: 700; font-size: 2.5rem; text-align: center; margin: 0;">29 · 08 · 2026</p> 
   </div>
 
   <section>
