@@ -122,11 +122,35 @@
       font-size: 1.3rem;
     }
     .countdown {
-      font-size: 1.6rem;
-      font-weight: bold;
-      text-align: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 1.5rem;
       margin-top: 1rem;
-      color: var(--primary);
+      text-align: center;
+      justify-items: center;
+    }
+    .countdown-box {
+      background: linear-gradient(135deg, var(--primary) 0%, #6b7c54 100%);
+      color: white;
+      padding: 1.5rem 1rem;
+      border-radius: 12px;
+      min-width: 90px;
+      box-shadow: 0 8px 20px rgba(92,105,72,0.3);
+    }
+    .countdown-box .number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+    .countdown-box .label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.95;
     }
     iframe { border-radius: 16px; width: 100%; height: 350px; border: 0; }
     .itinerary-step { text-align: center; }
@@ -168,7 +192,7 @@
   </audio>
 
   <header>
-    <img src="logo_v.png" alt="Logo" style="max-width: 500px; margin-bottom: 1rem;">
+    <img src="logo_v.png" alt="Logo" style="max-width: 490px; margin-bottom: 1rem;">
   </header>
 
   <div class="names-section"> 
@@ -178,9 +202,9 @@
    </div>
 
   <section style="background: var(--section-bg); margin: 0 0 2rem 0;">
-    <h2>Cuenta atrás para el gran día</h2>
+    <h2>Cuenta atrás <br> para el gran día</h2>
     <div class="card" style="text-align: center; background: white;">
-      <div id="countdown" class="countdown" style="font-size: 2.5rem; color: var(--dark); font-family: 'Bricolage Grotesque', sans-serif; font-weight: 400; letter-spacing: 0.5px;"></div>
+      <div id="countdown" class="countdown" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 1.5rem; margin-top: 1rem; text-align: center; justify-items: center;"></div>
     </div>
   </section>
 
@@ -210,7 +234,7 @@
         <span style="font-size: 2rem;">🫂</span>
         <div style="flex: 1;">
           <span style="background: var(--primary); color: white; padding: 0.3rem 0.8rem; border-radius: 5px; font-weight: bold; margin-right: 0.5rem;">20:00</span>
-          <strong>Bienvenida en la Hacienda</strong>
+          <strong>Bienvenida</strong>
         </div>
       </div>
       <div style="display: flex; align-items: center; margin-bottom: 1rem; gap: 1rem;">
@@ -285,7 +309,7 @@
   <footer>
     <div style="border: 3px solid var(--primary); border-radius: 15px; padding: 2rem 2rem 0 2rem; max-width: 500px; margin: 0 auto 1.5rem; background: white;">
       <img class="baile" src="acua_fer_sev_3.jpg" alt="baile" style="max-width: 100%; margin-bottom: 1.5rem;" />
-      <p style="margin: 0; font-size: 1.4rem; font-style: italic; color: var(--primary); font-weight: 600;">Gracias por formar parte de<br>nuestra historia,<p></p> <span style="font-family: 'Great Vibes', cursive; font-size: 2.2rem; font-style: normal; font-weight: 400;">Luis y Victoria</span></p>
+      <p style="margin: 0; font-size: 1.4rem; font-style: italic; color: var(--primary); font-weight: 600;">Gracias por formar parte <br> de nuestra historia,<p></p> <span style="font-family: 'Great Vibes', cursive; font-size: 2.2rem; font-style: normal; font-weight: 400;">Luis y Victoria</span></p>
     </div>
     <p></p>
   </footer>
@@ -317,20 +341,40 @@
       playBtn.textContent = '♪';
     });
 
-    const weddingDate = new Date('2026-08-29T20:00:00').getTime();
+    const weddingDate = new Date('2026-08-28T20:00:00').getTime();
     const countdownEl = document.getElementById('countdown');
 
-    setInterval(() => {
+    function updateCountdown() {
       const now = new Date().getTime();
       const diff = weddingDate - now;
+      
       if (diff <= 0) {
-        countdownEl.innerHTML = '¡Hoy es el gran día! 🎉';
+        countdownEl.innerHTML = '<div style="grid-column: 1/-1; font-size: 2.5rem; color: var(--primary); font-weight: 700;">¡Hoy es el gran día! 🎉</div>';
         return;
       }
+      
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      countdownEl.innerHTML = `${days} días y ${hours} horas`;
-    }, 1000);
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      
+      countdownEl.innerHTML = `
+        <div class="countdown-box">
+          <div class="number">${String(days).padStart(2, '0')}</div>
+          <div class="label">Días</div>
+        </div>
+        <div class="countdown-box">
+          <div class="number">${String(hours).padStart(2, '0')}</div>
+          <div class="label">Horas</div>
+        </div>
+        <div class="countdown-box">
+          <div class="number">${String(minutes).padStart(2, '0')}</div>
+          <div class="label">Minutos</div>
+        </div>
+      `;
+    }
+    
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 
     fetch('https://api.open-meteo.com/v1/forecast?latitude=37.418&longitude=-6.001&current_weather=true')
       .then(r => r.json())
